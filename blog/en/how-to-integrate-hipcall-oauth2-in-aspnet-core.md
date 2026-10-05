@@ -49,15 +49,16 @@ You need:
   ```
 - Permission to create applications in the Hipcall dashboard.
 
-### Create an OAuth2 application
+### Obtain your credentials
 
-1. Go to Settings > Developer.
-2. Create a new OAuth2 application.
-3. Fill in the details:
-   - **Name:** A descriptive name for your application.
-   - **Redirect URI:** Your ngrok address. Example: `https://your-tunnel.ngrok-free.dev/callback`.
-   - **Application Type:** Select Web Application.
-4. Save the **Client ID** and **Client Secret**. The Client Secret is shown once.
+OAuth2 applications cannot be created directly from the user dashboard. You must provide your application details to the Hipcall support team to obtain your credentials.
+
+Provide the support team with the following:
+- **Application Name:** A descriptive name for your application.
+- **Redirect URI:** Your ngrok address. Example: `https://your-tunnel.ngrok-free.dev/callback`.
+- **Application Type:** Web Application.
+
+Once your request is approved, you will receive a **Client ID** and a **Client Secret**.
 
 Set the environment variables:
 

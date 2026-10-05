@@ -48,15 +48,16 @@ sequenceDiagram
 - WPF projesi (`dotnet new wpf -n HipcallDesktop`).
 - Hipcall panelinde uygulama oluşturma yetkisi.
 
-### OAuth2 uygulaması oluşturma (PKCE)
+### Kimlik bilgilerinizi edinin
 
-1. Settings > Developer (Ayarlar > Geliştirici) bölümüne gidin.
-2. Yeni bir OAuth2 uygulaması oluşturun.
-3. Detayları girin:
-   - **Ad:** Masaüstü uygulamanız için bir isim.
-   - **Redirect URI:** `http://localhost:5000/callback` veya kuruluşunuzun belirlediği adres.
-   - **Application Type:** Native / Desktop Application seçin.
-4. Oluşturulan **Client ID** değerini kaydedin. PKCE uygulamalarında Client Secret verilmez.
+OAuth2 uygulamaları doğrudan kullanıcı panelinden oluşturulamaz. Kimlik bilgilerinizi almak için uygulamanızın detaylarını Hipcall destek ekibine iletmeniz gerekir.
+
+Destek ekibine şu bilgileri sağlayın:
+- **Uygulama Adı:** Masaüstü uygulamanız için bir isim.
+- **Yönlendirme Adresi (Redirect URI):** `http://localhost:5000/callback` veya kuruluşunuzun belirlediği adres.
+- **Uygulama Tipi:** Masaüstü Uygulaması (Native).
+
+Talebiniz onaylandığında size bir **Client ID** iletilecektir. PKCE kullandığınız için Client Secret verilmeyecektir.
 
 Ortam değişkenlerini tanımlayın:
 

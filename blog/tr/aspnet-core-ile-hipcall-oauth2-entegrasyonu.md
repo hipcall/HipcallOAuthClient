@@ -49,15 +49,16 @@ sequenceDiagram
   ```
 - Hipcall panelinde uygulama oluşturma yetkisi.
 
-### OAuth2 uygulaması oluşturma
+### Kimlik bilgilerinizi edinin
 
-1. Settings > Developer (Ayarlar > Geliştirici) bölümüne gidin.
-2. Yeni bir OAuth2 uygulaması oluşturun.
-3. Detayları girin:
-   - **Ad:** Uygulamanız için tanımlayıcı bir isim verin.
-   - **Redirect URI:** ngrok adresinizi yazın. Örnek: `https://your-tunnel.ngrok-free.dev/callback`.
-   - **Application Type:** Web Application seçin.
-4. Oluşturulan **Client ID** ve **Client Secret** değerlerini kaydedin. Client Secret yalnızca bir kez gösterilir.
+OAuth2 uygulamaları doğrudan kullanıcı panelinden oluşturulamaz. Kimlik bilgilerinizi almak için uygulamanızın detaylarını Hipcall destek ekibine iletmeniz gerekir.
+
+Destek ekibine şu bilgileri sağlayın:
+- **Uygulama Adı:** Uygulamanız için tanımlayıcı bir isim.
+- **Yönlendirme Adresi (Redirect URI):** ngrok adresinizi yazın. Örnek: `https://your-tunnel.ngrok-free.dev/callback`.
+- **Uygulama Tipi:** Web Uygulaması.
+
+Talebiniz onaylandığında size bir **Client ID** ve **Client Secret** iletilecektir.
 
 Ortam değişkenlerini tanımlayın:
 

@@ -48,15 +48,16 @@ You need:
 - A WPF project (`dotnet new wpf -n HipcallDesktop`).
 - Permission to create applications in the Hipcall dashboard.
 
-### Create an OAuth2 application (PKCE)
+### Obtain your credentials
 
-1. Go to Settings > Developer.
-2. Create a new OAuth2 application.
-3. Fill in the details:
-   - **Name:** A name for your desktop application.
-   - **Redirect URI:** `http://localhost:5000/callback` or the address determined by your organisation.
-   - **Application Type:** Select Native / Desktop Application.
-4. Save the generated **Client ID**. PKCE applications do not receive a Client Secret.
+OAuth2 applications cannot be created directly from the user dashboard. You must provide your application details to the Hipcall support team to obtain your credentials.
+
+Provide the support team with the following:
+- **Application Name:** A name for your desktop application.
+- **Redirect URI:** `http://localhost:5000/callback` or the address determined by your organisation.
+- **Application Type:** Native / Desktop Application.
+
+Once your request is approved, you will receive a **Client ID**. Because you are using PKCE, you will not receive a Client Secret.
 
 Set the environment variables:
 
