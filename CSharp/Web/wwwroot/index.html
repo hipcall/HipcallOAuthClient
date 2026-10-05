@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hipcall OAuth2 Test Ekranı</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+        }
+        h2 { margin-top: 0; font-size: 24px; font-weight: 600; }
+        p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+        .button {
+            display: inline-block;
+            width: 100%;
+            padding: 14px 20px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .button:hover { background-color: var(--primary-hover); }
+        .button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Hipcall OAuth2 Test</h2>
+        <p>Aşağıdaki butona tıklayarak giriş yapıp Token'ı alabilirsiniz.</p>
+        <button class="button" onclick="startOAuth()">Hipcall İle Giriş Yap</button>
+    </div>
+
+    <script>
+        function startOAuth() {
+            const clientId = "<BURAYA_HIPCALL_CLIENT_ID_GELECEK>";
+            const redirectUri = encodeURIComponent("<BURAYA_REDIRECT_URI_GELECEK_ORN_NGROK_VEYA_LOCALHOST>");
+            const scopes = "profile+email+offline_access";
+            const state = "staj123"; 
+
+            const authorizeUrl = `https://use.hipcall.com.tr/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&state=${state}`;
+            
+            window.location.href = authorizeUrl;
+        }
+    </script>
+</body>
+</html>
