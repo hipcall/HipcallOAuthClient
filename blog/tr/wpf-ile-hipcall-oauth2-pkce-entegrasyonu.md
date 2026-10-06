@@ -64,7 +64,9 @@ export HIPCALL_CLIENT_ID="..."
 export HIPCALL_REDIRECT_URI="https://sizindomain.ngrok-free.dev/callback"
 ```
 
-## Adım 1: PKCE anahtarlarını üretin
+## İlk isteğiniz
+
+### Adım 1: PKCE anahtarlarını üretin
 
 Her giriş denemesinde yeni bir `code_verifier` üretilmelidir. Bu değer 43 ile 128 karakter arasında, kriptografik olarak rastgele bir dizedir. `code_challenge` ise bu değerin SHA-256 özeti olup Base64Url formatında kodlanır.
 
@@ -96,7 +98,7 @@ string Base64UrlEncode(byte[] bytes)
 }
 ```
 
-## Adım 2: Tarayıcıyı açın ve geri dönüşü dinleyin
+### Adım 2: Tarayıcıyı açın ve geri dönüşü dinleyin
 
 Yetkilendirme URL'sini sistem tarayıcısında açın. Kullanıcı Hipcall'da oturum açıp onay verdikten sonra tarayıcı `redirect_uri` adresine yönlendirilir. Bu adresi yerel bir soketle dinleyerek `code` parametresini yakalayın.
 
@@ -169,7 +171,7 @@ Windows'un yerleşik `HttpListener` sınıfı `http.sys` çekirdek sürücüsü 
 
 `TcpListener` ağ soketlerini doğrudan dinler ve `Host` başlığını denetlemez. Bu sayede ngrok veya başka bir tünel servisinden gelen istekleri sorunsuz karşılar.
 
-## Adım 3: Token takası
+### Adım 3: Token takası
 
 Yakaladığınız `code` ve Adım 1'de ürettiğiniz `code_verifier` ile token takasını yapın. PKCE akışında `client_secret` gönderilmez:
 

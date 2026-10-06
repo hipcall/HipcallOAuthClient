@@ -66,7 +66,9 @@ export HIPCALL_CLIENT_SECRET="..."
 export HIPCALL_REDIRECT_URI="https://your-tunnel.ngrok-free.dev/callback"
 ```
 
-## Step 1: Build the authorisation URL
+## Your first request
+
+### Step 1: Build the authorisation URL
 
 Redirect the user to Hipcall's sign-in screen with this URL structure:
 
@@ -95,7 +97,7 @@ You can request the following basic scopes:
 - `email`: Permission to read the user's email address.
 - `offline_access`: Permission to obtain a `refresh_token`, allowing you to renew access even when the user is offline.
 
-## Step 2: Exchange the code for a token
+### Step 2: Exchange the code for a token
 
 After the user grants consent, Hipcall redirects the browser to your `redirect_uri` with a `?code=...` parameter. Send a POST request to `/oauth/token` to exchange the code for an access token:
 
@@ -108,7 +110,7 @@ curl -X POST https://use.hipcall.com/oauth/token \
   -d "code=AUTHORIZATION_CODE"
 ```
 
-## Step 3: Fetch profile data
+### Step 3: Fetch profile data
 
 Use the access token to call the API:
 

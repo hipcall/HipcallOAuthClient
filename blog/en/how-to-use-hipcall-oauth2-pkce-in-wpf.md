@@ -64,7 +64,9 @@ export HIPCALL_CLIENT_ID="..."
 export HIPCALL_REDIRECT_URI="https://yourdomain.ngrok-free.dev/callback"
 ```
 
-## Step 1: Generate PKCE keys
+## Your first request
+
+### Step 1: Generate PKCE keys
 
 You must generate a new `code_verifier` for every sign-in attempt. This value is a cryptographically random string between 43 and 128 characters long. The `code_challenge` is the SHA-256 hash of this value, encoded in Base64Url format.
 
@@ -96,7 +98,7 @@ string Base64UrlEncode(byte[] bytes)
 }
 ```
 
-## Step 2: Open the browser and listen for the callback
+### Step 2: Open the browser and listen for the callback
 
 Open the authorisation URL in the system browser. After the user signs in on Hipcall and grants consent, the browser redirects to the `redirect_uri`. Listen on this address with a local socket to capture the `code` parameter.
 
@@ -169,7 +171,7 @@ Windows' built-in `HttpListener` class works through the `http.sys` kernel drive
 
 `TcpListener` listens to network sockets directly and does not inspect HTTP headers. This allows it to receive requests from ngrok or other tunnel services without issue.
 
-## Step 3: Exchange the code for a token
+### Step 3: Exchange the code for a token
 
 Perform the token exchange using the captured `code` and the `code_verifier` generated in Step 1. The `client_secret` is not sent in the PKCE flow:
 

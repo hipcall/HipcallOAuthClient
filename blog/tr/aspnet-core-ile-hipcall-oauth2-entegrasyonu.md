@@ -66,7 +66,9 @@ export HIPCALL_CLIENT_SECRET="..."
 export HIPCALL_REDIRECT_URI="https://your-tunnel.ngrok-free.dev/callback"
 ```
 
-## Adım 1: Yetkilendirme URL'sini oluşturun
+## İlk isteğiniz
+
+### Adım 1: Yetkilendirme URL'sini oluşturun
 
 Kullanıcıyı Hipcall'ın oturum açma ekranına yönlendirmek için aşağıdaki URL yapısını kullanın:
 
@@ -95,7 +97,7 @@ Kullanabileceğiniz temel kapsamlar şunlardır:
 - `email`: Kullanıcının e-posta adresini okuma izni.
 - `offline_access`: Yenileme belirteci (`refresh_token`) alarak, kullanıcı çevrimdışı olsa bile erişimi yenileme izni.
 
-## Adım 2: Token takası
+### Adım 2: Token takası
 
 Kullanıcı onay verdikten sonra Hipcall, tarayıcıyı `redirect_uri` adresinize `?code=...` parametresiyle yönlendirir. Bu kodu erişim belirteci ile takas etmek için `/oauth/token` adresine POST isteği gönderin:
 
@@ -108,7 +110,7 @@ curl -X POST https://use.hipcall.com.tr/oauth/token \
   -d "code=YETKILENDIRME_KODU"
 ```
 
-## Adım 3: Profil verisini çekin
+### Adım 3: Profil verisini çekin
 
 Elde ettiğiniz erişim belirteci ile API'ye istek atın:
 
