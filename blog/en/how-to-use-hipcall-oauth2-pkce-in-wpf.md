@@ -52,7 +52,7 @@ You need:
 OAuth2 applications cannot be created directly from the user dashboard. You must provide your application details to the Hipcall support team to obtain your credentials.
 
 Provide the support team with the following:
-- **Redirect URI:** `http://localhost:5000/callback` or the address determined by your organisation.
+- **Redirect URI:** `https://yourdomain.ngrok-free.dev/callback` or the ngrok address determined by your organisation.
 - **Application Type:** Native / Desktop Application.
 
 Once your request is approved, you will receive a **Client ID**. Because you are using PKCE, you will not receive a Client Secret.
@@ -61,7 +61,7 @@ Set the environment variables:
 
 ```bash
 export HIPCALL_CLIENT_ID="..."
-export HIPCALL_REDIRECT_URI="http://localhost:5000/callback"
+export HIPCALL_REDIRECT_URI="https://yourdomain.ngrok-free.dev/callback"
 ```
 
 ## Step 1: Generate PKCE keys
@@ -127,7 +127,7 @@ Use `TcpListener` to capture the callback:
 using System.Net;
 using System.Net.Sockets;
 
-var tcpListener = new TcpListener(IPAddress.Loopback, 5000);
+var tcpListener = new TcpListener(IPAddress.Loopback, 5062);
 tcpListener.Start();
 
 using var client = await tcpListener.AcceptTcpClientAsync();

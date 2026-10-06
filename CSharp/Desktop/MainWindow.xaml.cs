@@ -15,7 +15,7 @@ namespace Desktop
     public partial class MainWindow : Window
     {
         private readonly string ClientId = "<BURAYA_HIPCALL_CLIENT_ID_GELECEK>";
-        private readonly string RedirectUri = "http://localhost:5000/callback";
+        private readonly string RedirectUri = "https://envelope-footrest-flyable.ngrok-free.dev/callback";
         private HttpClient _httpClient;
 
         public MainWindow()
@@ -61,7 +61,7 @@ namespace Desktop
         {
             try
             {
-                var tcpListener = new TcpListener(IPAddress.Loopback, 5000);
+                var tcpListener = new TcpListener(IPAddress.Loopback, 5062);
                 tcpListener.Start();
                 
                 using var client = await tcpListener.AcceptTcpClientAsync();

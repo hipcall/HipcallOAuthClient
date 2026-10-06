@@ -52,7 +52,7 @@ sequenceDiagram
 OAuth2 uygulamaları doğrudan kullanıcı panelinden oluşturulamaz. Kimlik bilgilerinizi almak için uygulamanızın detaylarını Hipcall destek ekibine iletmeniz gerekir.
 
 Destek ekibine şu bilgileri sağlayın:
-- **Yönlendirme Adresi (Redirect URI):** `http://localhost:5000/callback` veya kuruluşunuzun belirlediği adres.
+- **Yönlendirme Adresi (Redirect URI):** `https://sizindomain.ngrok-free.dev/callback` veya kuruluşunuzun belirlediği ngrok adresi.
 - **Uygulama Tipi:** Masaüstü Uygulaması (Native).
 
 Talebiniz onaylandığında size bir **Client ID** iletilecektir. PKCE kullandığınız için Client Secret verilmeyecektir.
@@ -61,7 +61,7 @@ Ortam değişkenlerini tanımlayın:
 
 ```bash
 export HIPCALL_CLIENT_ID="..."
-export HIPCALL_REDIRECT_URI="http://localhost:5000/callback"
+export HIPCALL_REDIRECT_URI="https://sizindomain.ngrok-free.dev/callback"
 ```
 
 ## Adım 1: PKCE anahtarlarını üretin
@@ -127,7 +127,7 @@ Geri dönüşü dinlemek için `TcpListener` kullanın:
 using System.Net;
 using System.Net.Sockets;
 
-var tcpListener = new TcpListener(IPAddress.Loopback, 5000);
+var tcpListener = new TcpListener(IPAddress.Loopback, 5062);
 tcpListener.Start();
 
 using var client = await tcpListener.AcceptTcpClientAsync();
