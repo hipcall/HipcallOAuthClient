@@ -266,9 +266,9 @@ Use the `refresh_token` to obtain a new access token. The initial authorisation 
 
 ## Keeping your credentials safe
 
-- The Client Secret is shown once in the dashboard. If you lose it, delete the existing key and create a new one.
+- Store the Client Secret securely once you receive it from the Hipcall development team. If you lose it, contact support to request a new key.
 - Do not write the Client Secret into source code. Use environment variables or a secrets manager (Azure Key Vault, AWS Secrets Manager).
-- If the Client Secret leaks, delete it from the dashboard immediately and create a new application. Existing tokens become invalid.
+- If the Client Secret leaks, inform the Hipcall development team immediately. Your old application will be revoked and new credentials will be provided.
 - Do not store access tokens on the client side (localStorage, cookies). Keep the token in a server-side session.
 
 ## Next steps

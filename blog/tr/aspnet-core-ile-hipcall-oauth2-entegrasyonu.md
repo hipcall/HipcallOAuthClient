@@ -266,9 +266,9 @@ Erişim belirtecinin süresi dolmuşsa API, HTTP 401 döner:
 
 ## Kimlik bilgilerinizi güvende tutun
 
-- Client Secret panelde yalnızca bir kez gösterilir. Kaybederseniz mevcut anahtarı silip yenisini oluşturun.
+- Client Secret'ı Hipcall geliştirici ekibinden teslim aldığınızda güvenli bir yerde saklayın. Kaybederseniz veya sızdırırsanız yeni bir anahtar talep etmek için destek ekibiyle iletişime geçin.
 - Client Secret'ı kaynak koduna yazmayın. Ortam değişkeni veya güvenli bir yapılandırma yöneticisi (Azure Key Vault, AWS Secrets Manager) kullanın.
-- Client Secret sızdıysa panelden derhal silin ve yeni bir uygulama oluşturun. Eski belirteçler geçersiz olur.
+- Client Secret sızarsa derhal Hipcall geliştirici ekibine bildirin. Eski uygulamanız iptal edilip size yeni kimlik bilgileri sağlanacaktır.
 - Erişim belirteçlerini istemci tarafında (localStorage, cookie) saklamayın. Token'ı sunucu oturumunda tutun.
 
 ## Sonraki adımlar
