@@ -15,7 +15,7 @@ namespace Desktop
     public partial class MainWindow : Window
     {
         private readonly string ClientId = "<BURAYA_HIPCALL_CLIENT_ID_GELECEK>";
-        private readonly string RedirectUri = "<BURAYA_REDIRECT_URI_GELECEK_ORN_NGROK_VEYA_LOCALHOST>";
+        private readonly string RedirectUri = "http://localhost:5000/callback";
         private HttpClient _httpClient;
 
         public MainWindow()
@@ -61,7 +61,7 @@ namespace Desktop
         {
             try
             {
-                var tcpListener = new TcpListener(IPAddress.Loopback, 5062);
+                var tcpListener = new TcpListener(IPAddress.Loopback, 5000);
                 tcpListener.Start();
                 
                 using var client = await tcpListener.AcceptTcpClientAsync();
