@@ -88,6 +88,13 @@ app.MapGet("/callback", async (string? code, string? error, string? error_descri
         var contactsJsonResponse = await contactsResponse.Content.ReadAsStringAsync();
         var contactsStatusCode = (int)contactsResponse.StatusCode;
 
+        var callsEndpoint = "https://use.hipcall.com.tr/api/v3/calls?limit=10";
+        var callsRequest = new HttpRequestMessage(HttpMethod.Get, callsEndpoint);
+        callsRequest.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+        var callsResponse = await httpClient.SendAsync(callsRequest);
+        var callsJsonResponse = await callsResponse.Content.ReadAsStringAsync();
+        var callsStatusCode = (int)callsResponse.StatusCode;
+
         var html = $@"
         <!DOCTYPE html>
         <html lang='tr'>
@@ -130,6 +137,7 @@ app.MapGet("/callback", async (string? code, string? error, string? error_descri
                 <div class='tabs'>
                     <div class='tab active' onclick='showTab(this, ""profile"")'>Profil Bilgileri</div>
                     <div class='tab' onclick='showTab(this, ""contacts"")'>Kişiler (Contacts)</div>
+                    <div class='tab' onclick='showTab(this, ""calls"")'>Çağrılar (Calls)</div>
                 </div>
 
                 <div class='content'>
@@ -160,6 +168,23 @@ app.MapGet("/callback", async (string? code, string? error, string? error_descri
                             <pre id='contactsJsonDisplay'></pre>
                         </div>
                     </div>
+                    
+                    <div id='tab-calls' class='tab-content'>
+                        {(callsJsonResponse.Replace(" ", "").Contains("\"count\":0") || callsJsonResponse.Replace(" ", "").Contains("\"data\":[]") || callsStatusCode != 200 ? $@"
+                        <div style='background-color:#fffbeb; color:#b45309; padding:15px; border-radius:8px; margin-bottom:15px; border-left:4px solid #f59e0b; font-size:14px; line-height:1.5;'>
+                            <strong>⚠️ Çağrılar Neden Yüklenmedi?</strong>
+                            <ul style='margin-top:5px; margin-bottom:0; padding-left:20px;'>
+                                <li><strong>Yetki Eksikliği (Scope):</strong> Uygulama giriş yaparken `calls:read` iznini istemedi (sadece profile+email+offline_access istedik). Bu yüzden Hipcall API sana çağrıları dönmüyor (HTTP 403 atabilir veya güvenlik nedeniyle boş liste dönebilir).</li>
+                            </ul>
+                        </div>" : "")}
+                        <div class='data-container'>
+                            <div class='data-header'>
+                                <span>/api/v3/calls?limit=10</span>
+                                <span class='status-code {(callsStatusCode == 200 ? "status-200" : "status-error")}'>HTTP {callsStatusCode}</span>
+                            </div>
+                            <pre id='callsJsonDisplay'></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -178,8 +203,10 @@ app.MapGet("/callback", async (string? code, string? error, string? error_descri
 
                 const profileData = {profileJsonResponse};
                 const contactsData = {contactsJsonResponse};
+                const callsData = {callsJsonResponse};
                 document.getElementById('jsonDisplay').textContent = JSON.stringify(profileData, null, 4);
                 document.getElementById('contactsJsonDisplay').textContent = JSON.stringify(contactsData, null, 4);
+                document.getElementById('callsJsonDisplay').textContent = JSON.stringify(callsData, null, 4);
             </script>
         </body>
         </html>";
@@ -190,6 +217,15 @@ app.MapGet("/callback", async (string? code, string? error, string? error_descri
     {
         return Results.Content($"<h3>Bir sistem hatası oluştu:</h3><p>{ex.Message}</p>", "text/html; charset=utf-8");
     }
+});
+
+app.MapGet("/config", (IConfiguration configuration) => 
+{
+    return Results.Json(new 
+    {
+        clientId = configuration["OAuth:ClientId"],
+        redirectUri = configuration["OAuth:RedirectUri"]
+    });
 });
 
 app.Run();

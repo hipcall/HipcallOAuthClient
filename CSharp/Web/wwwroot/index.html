@@ -60,15 +60,22 @@
     </div>
 
     <script>
-        function startOAuth() {
-            const clientId = "<BURAYA_HIPCALL_CLIENT_ID_GELECEK>";
-            const redirectUri = encodeURIComponent("<BURAYA_REDIRECT_URI_GELECEK_ORN_NGROK_VEYA_LOCALHOST>");
-            const scopes = "profile+email+offline_access";
-            const state = "staj123"; 
+        async function startOAuth() {
+            try {
+                const response = await fetch('/config');
+                const config = await response.json();
+                
+                const clientId = config.clientId;
+                const redirectUri = encodeURIComponent(config.redirectUri);
+                const scopes = "profile+email+offline_access";
+                const state = "staj123"; 
 
-            const authorizeUrl = `https://use.hipcall.com.tr/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&state=${state}`;
-            
-            window.location.href = authorizeUrl;
+                const authorizeUrl = `https://use.hipcall.com.tr/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&state=${state}`;
+                
+                window.location.href = authorizeUrl;
+            } catch (err) {
+                alert("Ayarlar yüklenemedi. Sunucunun çalıştığından emin olun.");
+            }
         }
     </script>
 </body>

@@ -120,7 +120,6 @@ Kullanabileceğiniz temel kapsamlar şunlardır:
 - `profile`: Kullanıcının ad, soyad ve ID gibi temel profil bilgilerini okuma izni.
 - `email`: Kullanıcının e-posta adresini okuma izni.
 - `offline_access`: Yenileme belirteci (`refresh_token`) alarak, kullanıcı çevrimdışı olsa bile erişimi yenileme izni.
-- `contacts:read`: Kuruluşun kişi listesini (müşteriler/rehber) okuma izni.
 
 Geri dönüşü dinlemek için `TcpListener` kullanın:
 
@@ -482,17 +481,9 @@ HTTP Error 400. The request hostname is invalid.
 
 Çözüm olarak `TcpListener` kullanın. `TcpListener` TCP soketlerini doğrudan dinler ve HTTP başlıklarını denetlemez. Bu sayfadaki kod örnekleri `TcpListener` kullanır.
 
-### access_denied — User lacks permissions for scopes
+### access_denied
 
-Kullanıcıyı yetkilendirme ekranına yönlendirdiğinizde Hipcall şu hatayla geri dönerse:
-
-```
-error=access_denied&error_description=User+lacks+permissions+for+scopes%3A+contacts%3Aread
-```
-
-Bu, kullanıcının Hipcall hesabındaki rolünün istenen scope'lardan birine erişim yetkisi olmadığı anlamına gelir. Örneğin `contacts:read` scope'u kişi listesine erişim gerektirir ve bu yetki kullanıcının rolünde tanımlı değilse sunucu isteği reddeder.
-
-Çözüm: Yetkilendirme URL'sindeki `scope` parametresinden kullanıcının yetkisi olmayan scope değerini çıkarın. Temel profil bilgisi için `profile+email+offline_access` yeterlidir.
+Kullanıcı yetkilendirme ekranında uygulamanıza izin vermeyi reddederse (örneğin "İptal" butonuna basarsa) Hipcall, callback adresinize `error=access_denied` parametresiyle döner. Uygulamanızda bu durumu yakalayıp kullanıcıya uygun bir mesaj göstermelisiniz.
 
 ### invalid_grant
 

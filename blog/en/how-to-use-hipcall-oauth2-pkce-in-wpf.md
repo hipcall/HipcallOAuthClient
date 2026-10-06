@@ -120,7 +120,6 @@ You can request the following basic scopes:
 - `profile`: Permission to read basic profile details such as name, surname, and ID.
 - `email`: Permission to read the user's email address.
 - `offline_access`: Permission to obtain a `refresh_token`, allowing you to renew access even when the user is offline.
-- `contacts:read`: Permission to read the organisation's contact list.
 
 Use `TcpListener` to capture the callback:
 
@@ -482,17 +481,9 @@ HTTP Error 400. The request hostname is invalid.
 
 Use `TcpListener` to resolve this. `TcpListener` binds directly to TCP sockets and skips HTTP header validation. The code examples on this page use `TcpListener`.
 
-### access_denied — User lacks permissions for scopes
+### access_denied
 
-If Hipcall redirects the user back with this error:
-
-```
-error=access_denied&error_description=User+lacks+permissions+for+scopes%3A+contacts%3Aread
-```
-
-The user's role on their Hipcall account lacks permission for one of the requested scopes. For instance, the `contacts:read` scope requires access to the contacts list, and if that permission is missing from the user's role, the server rejects the request.
-
-Remove the unauthorised scope from the `scope` parameter in your authorisation URL. The `profile+email+offline_access` combination covers basic profile data.
+If the user refuses to grant permission to your application on the authorization screen (e.g. by clicking "Cancel"), Hipcall will redirect to your callback URL with an `error=access_denied` parameter. Your application should handle this gracefully and display an appropriate message to the user.
 
 ### invalid_grant
 

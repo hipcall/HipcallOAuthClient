@@ -94,7 +94,6 @@ You can request the following basic scopes:
 - `profile`: Permission to read basic profile details such as name, surname, and ID.
 - `email`: Permission to read the user's email address.
 - `offline_access`: Permission to obtain a `refresh_token`, allowing you to renew access even when the user is offline.
-- `contacts:read`: Permission to read the organisation's contact list.
 
 ## Step 2: Exchange the code for a token
 

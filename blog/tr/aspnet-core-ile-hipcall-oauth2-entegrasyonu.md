@@ -94,7 +94,6 @@ Kullanabileceğiniz temel kapsamlar şunlardır:
 - `profile`: Kullanıcının ad, soyad ve ID gibi temel profil bilgilerini okuma izni.
 - `email`: Kullanıcının e-posta adresini okuma izni.
 - `offline_access`: Yenileme belirteci (`refresh_token`) alarak, kullanıcı çevrimdışı olsa bile erişimi yenileme izni.
-- `contacts:read`: Kuruluşun kişi listesini (müşteriler/rehber) okuma izni.
 
 ## Adım 2: Token takası
 
