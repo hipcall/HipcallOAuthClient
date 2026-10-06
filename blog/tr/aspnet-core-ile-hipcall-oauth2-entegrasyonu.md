@@ -47,14 +47,12 @@ sequenceDiagram
   ```bash
   ngrok http 5062
   ```
-- Hipcall panelinde uygulama oluşturma yetkisi.
 
 ### Kimlik bilgilerinizi edinin
 
 OAuth2 uygulamaları doğrudan kullanıcı panelinden oluşturulamaz. Kimlik bilgilerinizi almak için uygulamanızın detaylarını Hipcall destek ekibine iletmeniz gerekir.
 
 Destek ekibine şu bilgileri sağlayın:
-- **Uygulama Adı:** Uygulamanız için tanımlayıcı bir isim.
 - **Yönlendirme Adresi (Redirect URI):** ngrok adresinizi yazın. Örnek: `https://your-tunnel.ngrok-free.dev/callback`.
 - **Uygulama Tipi:** Web Uygulaması.
 
@@ -85,8 +83,18 @@ https://use.hipcall.com.tr/oauth/authorize?response_type=code
 | `response_type` | Her zaman `code`. |
 | `client_id` | Panelden aldığınız Client ID. |
 | `redirect_uri` | Panelde kayıtlı Redirect URI ile birebir aynı olmalı. |
-| `scope` | İstenen izinler. Boşluk yerine `+` ile ayırın. |
+| `scope` | İstenen erişim izinleri. Aşağıdaki listeyi inceleyin. Boşluk yerine `+` ile ayırın. |
 | `state` | CSRF koruması. Her isteğe özgü rastgele bir değer üretin ve callback'te doğrulayın. |
+
+### İzin kapsamları (Scopes)
+
+Uygulamanızın kullanıcının hangi verilerine erişebileceğini belirlemek için `scope` parametresini kullanmalısınız. Birden fazla izin istemek için aralarına `+` koyun (örneğin: `profile+email+offline_access`). 
+
+Kullanabileceğiniz temel kapsamlar şunlardır:
+- `profile`: Kullanıcının ad, soyad ve ID gibi temel profil bilgilerini okuma izni.
+- `email`: Kullanıcının e-posta adresini okuma izni.
+- `offline_access`: Yenileme belirteci (`refresh_token`) alarak, kullanıcı çevrimdışı olsa bile erişimi yenileme izni.
+- `contacts:read`: Kuruluşun kişi listesini (müşteriler/rehber) okuma izni.
 
 ## Adım 2: Token takası
 
@@ -240,14 +248,9 @@ Bu kod, tarayıcı geçmişini bozmadan adres çubuğunu kök dizine (`/`) dönd
 
 ### CORS hatası
 
-Tarayıcıdan `fetch` veya `XMLHttpRequest` ile doğrudan `use.hipcall.com.tr/oauth/token` adresine istek atarsanız, tarayıcı CORS politikası gereği isteği engeller:
+Tarayıcınızın adres çubuğuna API URL'sini yazıp girdiğinizde sayfa sorunsuz açılır. Ancak aynı adrese kendi web sayfanızın içinden JavaScript (`fetch` veya `AJAX`) ile arka planda istek atmaya kalktığınızda tarayıcı güvenliği devreye girer. Tarayıcı, sizin siteniz (`localhost` veya `seninsiten.com`) ile Hipcall'un farklı alan adları olduğunu tespit eder. Hipcall sunucuları güvenlik gereği dış sitelerden gelen bu tür doğrudan JavaScript isteklerini reddettiği için, tarayıcınız işlemi bloke edip `blocked by CORS policy` hatası fırlatır.
 
-```
-Access to fetch at 'https://use.hipcall.com.tr/oauth/token'
-from origin 'https://your-app.com' has been blocked by CORS policy.
-```
-
-Token takasını her zaman C# arka ucunuz üzerinden yapın. Tarayıcı tarafında API çağrısı yapmayın.
+Bu kısıtlama tarayıcılara (Chrome, Safari vb.) özeldir. C# (ASP.NET Core) gibi arka uç (backend) sunucularında tarayıcı ortamı bulunmadığı için CORS kısıtlaması da yoktur. Token takasını ve veri çekme işlemlerini hiçbir zaman önyüzdeki JavaScript ile yapmayın. İstekleri her zaman C# sunucunuz üzerinden Hipcall'a iletin ve dönen güvenli veriyi kendi önyüzünüze aktarın.
 
 ### 401 Unauthorized
 
@@ -272,6 +275,5 @@ Erişim belirtecinin süresi dolmuşsa API, HTTP 401 döner:
 ## Sonraki adımlar
 
 - `refresh_token` ile belirteç yenileme akışını ekleyin.
-- `/api/v3/contacts` endpoint'i ile kişi listesini çekin.
 - [Hipcall API Referansı](https://use.hipcall.com.tr/api-docs/) sayfasından tüm endpoint'leri inceleyin.
 - Sorularınızı [Hipcall Topluluk](https://community.hipcall.com/) platformunda paylaşın.

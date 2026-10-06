@@ -46,14 +46,12 @@ sequenceDiagram
 
 - .NET 8 SDK veya üstü.
 - WPF projesi (`dotnet new wpf -n HipcallDesktop`).
-- Hipcall panelinde uygulama oluşturma yetkisi.
 
 ### Kimlik bilgilerinizi edinin
 
 OAuth2 uygulamaları doğrudan kullanıcı panelinden oluşturulamaz. Kimlik bilgilerinizi almak için uygulamanızın detaylarını Hipcall destek ekibine iletmeniz gerekir.
 
 Destek ekibine şu bilgileri sağlayın:
-- **Uygulama Adı:** Masaüstü uygulamanız için bir isim.
 - **Yönlendirme Adresi (Redirect URI):** `http://localhost:5000/callback` veya kuruluşunuzun belirlediği adres.
 - **Uygulama Tipi:** Masaüstü Uygulaması (Native).
 
@@ -113,6 +111,16 @@ https://use.hipcall.com.tr/oauth/authorize?response_type=code
   &code_challenge=URETILEN_CODE_CHALLENGE
   &code_challenge_method=S256
 ```
+
+### İzin kapsamları (Scopes)
+
+Yetkilendirme URL'sindeki `scope` parametresi ile uygulamanızın hangi verilere erişebileceğini belirlersiniz. Birden fazla izin istemek için aralarına artı işareti (`+`) koyun (örneğin: `profile+email+offline_access`). 
+
+Kullanabileceğiniz temel kapsamlar şunlardır:
+- `profile`: Kullanıcının ad, soyad ve ID gibi temel profil bilgilerini okuma izni.
+- `email`: Kullanıcının e-posta adresini okuma izni.
+- `offline_access`: Yenileme belirteci (`refresh_token`) alarak, kullanıcı çevrimdışı olsa bile erişimi yenileme izni.
+- `contacts:read`: Kuruluşun kişi listesini (müşteriler/rehber) okuma izni.
 
 Geri dönüşü dinlemek için `TcpListener` kullanın:
 

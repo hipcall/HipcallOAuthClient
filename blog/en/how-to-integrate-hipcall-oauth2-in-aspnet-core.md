@@ -47,14 +47,12 @@ You need:
   ```bash
   ngrok http 5062
   ```
-- Permission to create applications in the Hipcall dashboard.
 
 ### Obtain your credentials
 
 OAuth2 applications cannot be created directly from the user dashboard. You must provide your application details to the Hipcall support team to obtain your credentials.
 
 Provide the support team with the following:
-- **Application Name:** A descriptive name for your application.
 - **Redirect URI:** Your ngrok address. Example: `https://your-tunnel.ngrok-free.dev/callback`.
 - **Application Type:** Web Application.
 
@@ -85,8 +83,18 @@ https://use.hipcall.com/oauth/authorize?response_type=code
 | `response_type` | Always `code`. |
 | `client_id` | The Client ID from the dashboard. |
 | `redirect_uri` | Must match the Redirect URI registered in the dashboard exactly. |
-| `scope` | Requested permissions, separated by `+`. |
+| `scope` | Requested permissions. See the list below. Separate multiple scopes with `+`. |
 | `state` | CSRF protection. Generate a unique random value per request and verify it on callback. |
+
+### Scopes
+
+The `scope` parameter determines what user data your application can access. Separate multiple permissions with a `+` sign (e.g., `profile+email+offline_access`).
+
+You can request the following basic scopes:
+- `profile`: Permission to read basic profile details such as name, surname, and ID.
+- `email`: Permission to read the user's email address.
+- `offline_access`: Permission to obtain a `refresh_token`, allowing you to renew access even when the user is offline.
+- `contacts:read`: Permission to read the organisation's contact list.
 
 ## Step 2: Exchange the code for a token
 
@@ -240,14 +248,9 @@ This resets the address bar to the root path (`/`) without breaking the browser 
 
 ### CORS error
 
-If you call `use.hipcall.com/oauth/token` directly from the browser with `fetch` or `XMLHttpRequest`, the browser blocks the request:
+If you paste the API URL directly into your browser's address bar, the page loads normally. However, if your frontend JavaScript (`fetch` or `AJAX`) tries to call that same address in the background, browser security steps in. The browser sees that your site (`localhost` or `yourapp.com`) and Hipcall are different domains. Hipcall's servers reject direct requests from foreign JavaScript to protect data, causing the browser to throw a `blocked by CORS policy` error and halt the process.
 
-```
-Access to fetch at 'https://use.hipcall.com/oauth/token'
-from origin 'https://your-app.com' has been blocked by CORS policy.
-```
-
-Run the token exchange through your C# back end. Do not make API calls from the browser.
+This restriction exists exclusively in web browsers (Chrome, Safari, etc.). Backend servers written in C# (ASP.NET Core) do not operate inside a browser, meaning they do not face CORS limits. Never perform the token exchange or API data fetching via frontend JavaScript. Route all Hipcall API calls through your C# backend, and then pass the resulting data to your frontend.
 
 ### 401 Unauthorised
 
@@ -272,6 +275,5 @@ Use the `refresh_token` to obtain a new access token. The initial authorisation 
 ## Next steps
 
 - Add a token refresh flow using the `refresh_token`.
-- Fetch the contacts list with the `/api/v3/contacts` endpoint.
 - Review all available endpoints in the [Hipcall API Reference](https://use.hipcall.com/api-docs/).
 - Post your questions on the [Hipcall Community](https://community.hipcall.com/) forum.

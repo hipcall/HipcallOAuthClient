@@ -46,14 +46,12 @@ You need:
 
 - .NET 8 SDK or later.
 - A WPF project (`dotnet new wpf -n HipcallDesktop`).
-- Permission to create applications in the Hipcall dashboard.
 
 ### Obtain your credentials
 
 OAuth2 applications cannot be created directly from the user dashboard. You must provide your application details to the Hipcall support team to obtain your credentials.
 
 Provide the support team with the following:
-- **Application Name:** A name for your desktop application.
 - **Redirect URI:** `http://localhost:5000/callback` or the address determined by your organisation.
 - **Application Type:** Native / Desktop Application.
 
@@ -113,6 +111,16 @@ https://use.hipcall.com/oauth/authorize?response_type=code
   &code_challenge=GENERATED_CODE_CHALLENGE
   &code_challenge_method=S256
 ```
+
+### Scopes
+
+The `scope` parameter determines what user data your application can access. Separate multiple permissions with a `+` sign (e.g., `profile+email+offline_access`).
+
+You can request the following basic scopes:
+- `profile`: Permission to read basic profile details such as name, surname, and ID.
+- `email`: Permission to read the user's email address.
+- `offline_access`: Permission to obtain a `refresh_token`, allowing you to renew access even when the user is offline.
+- `contacts:read`: Permission to read the organisation's contact list.
 
 Use `TcpListener` to capture the callback:
 
