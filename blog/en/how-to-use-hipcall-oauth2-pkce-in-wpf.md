@@ -12,7 +12,7 @@ tags: [oauth2, dotnet, pkce, desktop]
 authors: [hipcall-team]
 featured: false
 draft: true
-task: 06
+task: 02
 status: review
 ---
 
@@ -165,11 +165,6 @@ await stream.WriteAsync(Encoding.UTF8.GetBytes(httpResponse));
 tcpListener.Stop();
 ```
 
-### Why use TcpListener?
-
-Windows' built-in `HttpListener` class works through the `http.sys` kernel driver. If the `Host` header in the incoming request does not match a registered prefix, it rejects the connection. When a tunnel service like ngrok forwards the request with a different `Host` header, `HttpListener` returns HTTP 400.
-
-`TcpListener` listens to network sockets directly and does not inspect HTTP headers. This allows it to receive requests from ngrok or other tunnel services without issue.
 
 ### Step 3: Exchange the code for a token
 

@@ -12,7 +12,7 @@ tags: [oauth2, dotnet, pkce, desktop]
 authors: [hipcall-team]
 featured: false
 draft: true
-task: 06
+task: 02
 status: review
 ---
 
@@ -165,11 +165,6 @@ await stream.WriteAsync(Encoding.UTF8.GetBytes(httpResponse));
 tcpListener.Stop();
 ```
 
-### Neden TcpListener?
-
-Windows'un yerleşik `HttpListener` sınıfı `http.sys` çekirdek sürücüsü üzerinden çalışır. Gelen istekteki `Host` başlığı, kayıtlı bir ön ek (prefix) ile eşleşmezse bağlantıyı reddeder. ngrok gibi tünel servisleri isteği farklı bir `Host` başlığıyla ilettiğinde `HttpListener` HTTP 400 döner.
-
-`TcpListener` ağ soketlerini doğrudan dinler ve `Host` başlığını denetlemez. Bu sayede ngrok veya başka bir tünel servisinden gelen istekleri sorunsuz karşılar.
 
 ### Adım 3: Token takası
 
