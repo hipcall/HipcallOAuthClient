@@ -12,7 +12,7 @@ tags: [oauth2, dotnet, authentication, getting-started]
 authors: [hipcall-team]
 featured: false
 draft: true
-task: 05
+task: 01
 status: review
 ---
 
@@ -63,7 +63,7 @@ Ortam değişkenlerini tanımlayın:
 ```bash
 export HIPCALL_CLIENT_ID="..."
 export HIPCALL_CLIENT_SECRET="..."
-export HIPCALL_REDIRECT_URI="https://your-tunnel.ngrok-free.dev/callback"
+export HIPCALL_REDIRECT_URI="https://sizin-domain.ngrok-free.dev/callback"
 ```
 
 ## İlk isteğiniz
