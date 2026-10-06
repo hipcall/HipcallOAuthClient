@@ -15,7 +15,7 @@ namespace Desktop
     public partial class MainWindow : Window
     {
         private readonly string ClientId = "<BURAYA_HIPCALL_CLIENT_ID_GELECEK>";
-        private readonly string RedirectUri = "https://envelope-footrest-flyable.ngrok-free.dev/callback";
+        private readonly string RedirectUri = "<BURAYA_REDIRECT_URI_GELECEK_ORN_NGROK>";
         private HttpClient _httpClient;
 
         public MainWindow()
